@@ -1,0 +1,36 @@
+package org.jash.mvvmapplication
+
+import android.app.Application
+import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.room.Room
+import io.reactivex.rxjava3.schedulers.Schedulers
+import org.jash.mvvmapplication.database.AppDatabase
+import org.jash.mvvmapplication.model.Cart
+import org.jash.mvvmapplication.model.Category
+import org.jash.mvvmapplication.model.Product
+import org.jash.mvvmapplication.model.User
+import org.jash.mylibrary.activity.SafeSubscribe
+import org.jash.mylibrary.processor
+
+class App:Application() {
+    lateinit var database:AppDatabase
+    override fun onCreate() {
+        super.onCreate()
+        database = Room.databaseBuilder(this, AppDatabase::class.java, "store").build()
+        val safeSubscribe = SafeSubscribe(
+            processor.observeOn(Schedulers.io())
+                .ofType(User::class.java)
+                .subscribe { database.getUserDao().insert(it) },
+            processor.observeOn(Schedulers.io())
+                .ofType(Category::class.java)
+                .subscribe { database.getCategoryDao().insert(it) },
+            processor.observeOn(Schedulers.io())
+                .ofType(Product::class.java)
+                .subscribe { database.getProductDao().insert(it) },
+            processor.observeOn(Schedulers.io())
+                .ofType(Cart::class.java)
+                .subscribe { database.getCartDao().insert(it) },
+        )
+        ProcessLifecycleOwner.get().lifecycle.addObserver(safeSubscribe)
+    }
+}

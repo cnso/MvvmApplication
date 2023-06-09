@@ -86,6 +86,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:onClick="@{v -> product.pay(v.context)}"
                 android:text="购买"
                 android:layout_weight="1"/>
         </LinearLayout>

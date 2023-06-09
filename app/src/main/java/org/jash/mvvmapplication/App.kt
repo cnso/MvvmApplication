@@ -3,6 +3,7 @@ package org.jash.mvvmapplication
 import android.app.Application
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.room.Room
+import com.alipay.sdk.app.EnvUtils
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.jash.mvvmapplication.database.AppDatabase
 import org.jash.mvvmapplication.model.Cart
@@ -15,6 +16,7 @@ import org.jash.mylibrary.processor
 class App:Application() {
     lateinit var database:AppDatabase
     override fun onCreate() {
+        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX)
         super.onCreate()
         database = Room.databaseBuilder(this, AppDatabase::class.java, "store").build()
         val safeSubscribe = SafeSubscribe(

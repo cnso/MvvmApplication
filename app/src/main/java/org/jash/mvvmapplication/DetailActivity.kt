@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -15,6 +16,7 @@ import org.jash.mvvmapplication.adapter.ProductBannerAdapter
 import org.jash.mvvmapplication.databinding.ActivityDetailBinding
 import org.jash.mvvmapplication.databinding.ConfigItemBinding
 import org.jash.mvvmapplication.model.Product
+import org.jash.mvvmapplication.pay.PayResult
 import org.jash.mvvmapplication.utils.database
 import org.jash.mvvmapplication.viewmodel.DetailViewModel
 import org.jash.mylibrary.activity.BaseActivity
@@ -40,6 +42,12 @@ class DetailActivity : BaseActivity() {
         } else {
             processor.onNext(viewModel.product!!)
         }
+    }
+    @Subscribe
+    fun loadPay(payResult: PayResult) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("支付结果")
+            .setMessage("支付${if(payResult.resultStatus == "9000") "成功" else "失败"}: ${payResult.result}")
     }
     @Subscribe
     fun loadMessage(s:String) {

@@ -46,6 +46,8 @@ android {
 
 dependencies {
     implementation "com.github.cnso:library:1.2"
+    implementation files('./libs/alipaysdk-15.8.05.211018174351.aar')
+//    api 'com.alipay.sdk:alipaysdk-android:+@aar'
     def lifecycle_version = "2.5.1"
 
     // ViewModel

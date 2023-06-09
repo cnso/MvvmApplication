@@ -1,12 +1,16 @@
 package org.jash.mvvmapplication.model
 
+import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import org.jash.mvvmapplication.DetailActivity
+import org.jash.mvvmapplication.pay.payV2
 import org.jash.mvvmapplication.utils.service
+import org.jash.mylibrary.logd
 import org.jash.mylibrary.processor
 
 @Entity
@@ -28,6 +32,7 @@ data class Product(
     val id: Int
 ) {
     fun displayDetail(context: Context) {
+        logd(context.toString())
         Intent(context, DetailActivity::class.java).also {
             it.putExtra("id", id)
             context.startActivity(it)
@@ -37,5 +42,8 @@ data class Product(
         val d = service.addCart(Cart(goodsId = id, count = 1)).subscribe {
             processor.onNext(it.message)
         }
+    }
+    fun pay(context: Context) {
+        payV2((context as ContextWrapper).baseContext as Activity)
     }
 }

@@ -16,3 +16,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MvvmApplication"
 include ':app'
+
+include ':kefu-easeui'
+include ':player'

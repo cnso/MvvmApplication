@@ -21,6 +21,10 @@ android {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+        ndk {
+            //选择要添加的对应cpu类型的.so库
+            abiFilters 'armeabi', 'arm64-v8a', 'armeabi-v7a', 'x86'
+        }
     }
 
     buildTypes {
@@ -45,8 +49,9 @@ android {
 }
 
 dependencies {
-    implementation "com.github.cnso:library:1.2"
+    implementation "com.github.cnso:library:1.5"
     implementation files('./libs/alipaysdk-15.8.05.211018174351.aar')
+    implementation project(path: ":kefu-easeui")
 //    api 'com.alipay.sdk:alipaysdk-android:+@aar'
     def lifecycle_version = "2.5.1"
 

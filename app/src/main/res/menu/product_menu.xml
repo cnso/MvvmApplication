@@ -6,4 +6,9 @@
         android:title="购物车"
         android:icon="@drawable/ic_cart"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/kefu"
+        android:title="客服"
+        android:icon="@android:drawable/ic_popup_reminder"
+        app:showAsAction="always"/>
 </menu>

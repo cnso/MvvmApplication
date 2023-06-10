@@ -1,9 +1,7 @@
 package org.jash.mvvmapplication
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -12,6 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
+import com.hyphenate.helpdesk.easeui.util.IntentBuilder
 import org.jash.mvvmapplication.databinding.ActivityProductBinding
 import org.jash.mvvmapplication.model.Category
 import org.jash.mvvmapplication.model.Product
@@ -20,7 +19,9 @@ import org.jash.mvvmapplication.viewmodel.ProductViewModel
 import org.jash.mylibrary.activity.BaseActivity
 import org.jash.mylibrary.annotations.BindingLayout
 import org.jash.mylibrary.annotations.Subscribe
+import org.jash.mylibrary.logd
 import org.jash.mylibrary.processor
+
 
 class ProductActivity : BaseActivity() {
     @set:BindingLayout("activity_product")
@@ -66,6 +67,14 @@ class ProductActivity : BaseActivity() {
                 startActivity(Intent(this, CartActivity::class.java))
                 true
             }
+            R.id.kefu -> {
+                val intent = IntentBuilder(this).setServiceIMNumber("kefuchannelimid_190611")
+                    .setTitleName("商城客服")
+                    .build()
+                startActivity(intent)
+                true
+            }
+
             android.R.id.home -> toggle.onOptionsItemSelected(item)
             else -> super.onOptionsItemSelected(item)
         }

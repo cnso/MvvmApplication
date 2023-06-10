@@ -50,7 +50,6 @@ class CartActivity : BaseActivity() {
         when(pair.first) {
             "removeCart" -> viewModel.adapter.removeIf{it.id == pair.second}
         }
-
     }
     @Subscribe
     fun loadCart(cart: Cart) {
